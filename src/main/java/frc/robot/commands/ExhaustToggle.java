@@ -7,23 +7,17 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.Constants;
 
-public class Drive extends CommandBase {
-  /**
-   * Creates a new Drive.
-   */
-  private final Drivetrain driveSubsystem;
-  private final DoubleSupplier left, right;
-  
-  public Drive(Drivetrain d, DoubleSupplier left, DoubleSupplier right) {
-    driveSubsystem = d;
-    this.left = left;
-    this.right = right;
-    addRequirements(driveSubsystem);
+public class ExhaustToggle extends CommandBase {
+  private final SpeedControllerGroup exhaust =
+    new SpeedControllerGroup(new Spark(Constants.EXHAUST1),
+                            new Spark(Constants.EXHAUST2));
+  public ExhaustToggle(Double speed) {
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +28,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.tankDrive(-left.getAsDouble(), -right.getAsDouble());
+    exhaust.get();  
   }
 
   // Called once the command ends or is interrupted.

@@ -8,10 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.Drive;
+import frc.robot.commands.DriveDistance;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ExhaustToggle;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
@@ -26,9 +30,11 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain driveTrain = new Drivetrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final Command driveDistance = new DriveDistance(driveTrain, 2);
 
-
-  XboxController gamepad = new XboxController(Constants.GAMEPAD);
+  //Joystick left = new Joystick(Constants.LEFT);
+  //Joystick right = new Joystick(Constants.RIGHT);
+  Joystick gamepad = new Joystick(Constants.LEFT);
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -37,8 +43,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     driveTrain.setDefaultCommand(new Drive(driveTrain, 
-                                              () -> gamepad.getRawAxis(1), 
-                                              () -> gamepad.getRawAxis(5)));
+                                                      () -> gamepad.getRawAxis(1), 
+                                                      () -> gamepad.getRawAxis(5)));
   }
 
   /**
@@ -48,8 +54,9 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
-  }
+    final JoystickButton toggle = new JoystickButton(gamepad, 1);
+    toggle.whileHeld(new ExhaustToggle(.5));
+    }
 
 
   /**
@@ -59,6 +66,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return driveDistance;
   }
 }

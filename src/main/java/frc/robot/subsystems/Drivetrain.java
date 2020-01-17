@@ -22,13 +22,13 @@ public class Drivetrain extends SubsystemBase {
                             new Spark(Constants.BACKL));
 
   private final SpeedControllerGroup right =
-    new SpeedControllerGroup(new Spark(Constants.FRONTR),
-                             new Spark(Constants.BACKR));
+    new SpeedControllerGroup(new Spark(Constants.FRONTR), 
+                            new Spark(Constants.BACKR));
 
   private final DifferentialDrive drive = new DifferentialDrive(left, right);  
 
   public Drivetrain() {
-
+    drive.setSafetyEnabled(false);
   }
 
   @Override
@@ -39,4 +39,5 @@ public class Drivetrain extends SubsystemBase {
   public void tankDrive(double left, double right){
     drive.tankDrive(left, right);
   }
+
 }

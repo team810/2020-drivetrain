@@ -7,44 +7,47 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
-public class Drive extends CommandBase {
-  /**
-   * Creates a new Drive.
-   */
-  private final Drivetrain driveSubsystem;
-  private final DoubleSupplier left, right;
+public class DriveDistance extends CommandBase {
   
-  public Drive(Drivetrain d, DoubleSupplier left, DoubleSupplier right) {
-    driveSubsystem = d;
-    this.left = left;
-    this.right = right;
-    addRequirements(driveSubsystem);
+  private Drivetrain d;
+  private double startTime;
+  private int time;
+
+  public DriveDistance(Drivetrain driveTrain, int time) {
+    d = driveTrain;
+    this.time = time;
+    addRequirements(d);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startTime = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.tankDrive(-left.getAsDouble(), -right.getAsDouble());
+    if(System.currentTimeMillis() - startTime < 1000){
+      d.tankDrive(0.5, 0.5);
+    }else{
+      d.tankDrive(0, 0);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    d.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean isFinished = System.currentTimeMillis() - startTime < 1000 ? true : false;
+    return isFinished;
   }
 }

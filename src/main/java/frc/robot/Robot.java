@@ -14,12 +14,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
+ * the package after creating this project, you must also up
+ * date the build.gradle file in the
  * project.
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  private Command driveDistance;
   private RobotContainer m_robotContainer;
 
   /**
@@ -65,11 +66,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    driveDistance = m_robotContainer.getAutonomousCommand();
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (driveDistance != null) {
+      driveDistance.schedule();
     }
   }
 
@@ -86,8 +87,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (driveDistance != null) {
+      driveDistance.cancel();
     }
   }
 

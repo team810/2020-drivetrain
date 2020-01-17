@@ -17,11 +17,15 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int GAMEPAD = 0;
+    public static final int LEFT = 0;
+    public static final int RIGHT = 1;
     
 
 	public static final int FRONTL = 0;
-	public static final int BACKL = 1;
-	public static final int FRONTR = 2;
-	public static final int BACKR = 3;
+    public static final int FRONTR = 1;
+    public static final int BACKL = 2;
+    public static final int BACKR = 3;
+    
+    public static final int EXHAUST1 = 4;
+    public static final int EXHAUST2 = 5;
 }
