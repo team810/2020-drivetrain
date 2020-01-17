@@ -31,7 +31,7 @@ public class DriveDistance extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(System.currentTimeMillis() - startTime < 1000){
+    if(System.currentTimeMillis() - startTime < time){
       d.tankDrive(0.5, 0.5);
     }else{
       d.tankDrive(0, 0);
@@ -47,7 +47,7 @@ public class DriveDistance extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean isFinished = System.currentTimeMillis() - startTime < 1000 ? true : false;
+    boolean isFinished = System.currentTimeMillis() - startTime < time ? true : false;
     return isFinished;
   }
 }

@@ -30,7 +30,7 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private final Drivetrain driveTrain = new Drivetrain();
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-  private final Command driveDistance = new DriveDistance(driveTrain, 2);
+  private final Command driveDistance = new DriveDistance(driveTrain, 1000);
 
   //Joystick left = new Joystick(Constants.LEFT);
   //Joystick right = new Joystick(Constants.RIGHT);
